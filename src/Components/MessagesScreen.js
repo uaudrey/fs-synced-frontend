@@ -15,22 +15,25 @@ const MessagesScreen = ({ navigation }) => {
       .then((result) => {
         setConversations(result.data);
       })
-      .catch((err) => {
-        console.log("Error:", err);
-      });
+      .catch((err) => console.log("Error:", err));
   };
 
   // Map each conversation to ConversationInfo
   const conversationsList = conversations.map((conversation) => {
     return (
-      <ConversationInfo
-        key={conversation.id}
-        id={conversation.id}
-        senderName={conversation.senderName}
-        msgText={conversation.body}
-        platform={conversation.platform}
-        // onPressEvent={() => navigation.navigate('Conversation')}
-      ></ConversationInfo>
+      <View>
+        <ConversationsHeader></ConversationsHeader>
+        <ConversationsBanner></ConversationsBanner>
+        <ConversationInfo
+          key={conversation.id}
+          conversationID={conversation.id}
+          senderName={conversation.senderName}
+          msgText={conversation.body}
+          platform={conversation.platform}
+          // onPressEvent={() => navigation.navigate('Conversation')}
+          updateCurrentConversation={props.updateCurrentConversation}
+        ></ConversationInfo>
+      </View>
     );
   });
 

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import axios from "axios";
-import Message from "./Message";
+import Header from "../Components/Header";
+import Message from "../Components/Message";
 
 const BACKEND_URL = `${process.env.SYNCED_SERVER_URL}`;
 
@@ -33,7 +34,7 @@ const ConversationScreen = () => {
   };
 
   // Map each message to Message
-  const messageList = messages.map((conversation) => {
+  const messageList = messages.map((message) => {
     return (
       <Message
         key={message.id}
@@ -41,7 +42,6 @@ const ConversationScreen = () => {
         senderName={message.senderName}
         msgText={message.body}
         tiimestamp={message.timestamp}
-        // Message or conversation status?
         status={message.status}
         platform={message.platform}
       ></Message>
@@ -50,7 +50,7 @@ const ConversationScreen = () => {
 
   return (
     <View>
-      <ConversationHeader></ConversationHeader>
+      <Header screenType="Messages"></Header>
       <ConversationBanner></ConversationBanner>
       {messageList}
       <MessageForm></MessageForm>

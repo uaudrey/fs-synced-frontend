@@ -43,7 +43,7 @@ const App = () => {
           updateCurrentConversation={updateCurrentConversation}
         />
         <Stack.Screen
-          name="Conversation"
+          name="Chat"
           component={ConversationScreen}
           currentConversation={currentConversation}
         />

@@ -117,21 +117,42 @@ const styles = StyleSheet.create({
   },
 });
 
+const platformData = {
+  slack: "../../assets/slack.png",
+};
+
 const ConversationsBanner = (props) => {
   // const platformsSet = new Set();
   // As a conversation is added, add its platform to the set
   // OR
   //useEffect?
+  const [platformList, setPlatformList] = useState([]);
+  // const platforms = props.platforms;
 
-  // platformSelectButtons = platforms.map((platform) => {
+  const getPlatformList = () => {
+    const platforms = props.platforms;
+    setPlatformList(platforms);
+  };
+
+  useEffect(getPlatformList);
+
+  // platformSelectButtons = platformList.map((platform) => {
   //   return (
-  //     // <View>
   //     <TouchableOpacity style={styles.platformIcons}>
-  //       <Image source={require("../../assets/inbox.png")} />
+  //       <Image source={require({platformData.platform})} />
   //     </TouchableOpacity>
-  //     // </View>
   //   );
   // });
+  let platformSelectButtons = [];
+  platformList.forEach((platform) => {
+    // const imgUrl = platformData.platform;
+    const imgUrl = platformData[platform];
+    platformSelectButtons.push(
+      <TouchableOpacity style={styles.platformIcons}>
+        <Image source={require({ imgUrl })} />
+      </TouchableOpacity>
+    );
+  });
 
   const [isPressed, setIsPressed] = useState(false);
   const onButtonPress = () => {
@@ -169,8 +190,8 @@ const ConversationsBanner = (props) => {
               style={styles.platformLogo}
             />
           </TouchableOpacity>
+          {/* {platformSelectButtons} */}
         </View>
-        {/* <View>{platformSelectButtons}</View> */}
         <TouchableHighlight>
           {/* <View style={{...styles.button, isPressed ? styles.buttonSelected : styles.buttonNotSelected}}> */}
           <View style={styles.addPlatform}>

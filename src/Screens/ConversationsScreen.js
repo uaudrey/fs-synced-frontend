@@ -36,7 +36,7 @@ const ConversationsScreen = ({ navigation }) => {
   };
 
   // Map each conversation to ConversationInfo
-  const conversationsList = conversations.map((conversation) => {
+  const [conversationsList] = conversations.map((conversation) => {
     return (
       <View>
         <ConversationInfo
@@ -45,12 +45,41 @@ const ConversationsScreen = ({ navigation }) => {
           senderName={conversation.senderName}
           msgText={conversation.body}
           platform={conversation.platform}
-          // onPressEvent={() => navigation.navigate('Conversation')}
+          // onPressEvent={() => navigation.navigate('Chat')}
           updateCurrentConversation={props.updateCurrentConversation}
+          notifButton={notifButton}
         ></ConversationInfo>
       </View>
     );
   });
+
+  // Map each conversation to ConversationInfo
+  // Count of the user's different platforms
+  let platforms = new Set();
+  let convList = [];
+  conversations.forEach((conversation) => {
+    convList.push(
+      <View>
+        <ConversationInfo
+          key={conversation.id}
+          conversationID={conversation.id}
+          senderName={conversation.senderName}
+          msgText={conversation.body}
+          platform={conversation.platform}
+          // onPressEvent={() => navigation.navigate('Chat')}
+          updateCurrentConversation={props.updateCurrentConversation}
+          notifButton={notifButton}
+        ></ConversationInfo>
+      </View>
+    );
+    platforms.add(conversation.platform);
+  });
+
+  const deleteConversation = (id) => {
+    axios.delete(`${BACKEND_URL}/conversations${id}`).then((response) => {
+      getConversations();
+    });
+  };
 
   // const platformsSet = new Set();
   // As a conversation is added, add its platform to the set
@@ -66,6 +95,7 @@ const ConversationsScreen = ({ navigation }) => {
       <Header screenType="Conversations"></Header>
       <ConversationsBanner
         messageCount={conversations.length}
+        platforms={platforms}
       ></ConversationsBanner>
       <Text style={styles.inboxP}>INBOX</Text>
       <ConversationInfo></ConversationInfo>

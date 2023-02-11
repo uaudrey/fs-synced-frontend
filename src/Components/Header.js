@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Search from "./Search";
-import { StyleSheet, Image, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  Text,
+  View,
+  TouchableWithoutFeedback,
+} from "react-native";
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -30,9 +36,36 @@ const styles = StyleSheet.create({
 });
 
 const Header = (props) => {
+  const [deleteButtonVisible, setDeleteButtonVisible] = useState(false);
+
+  const toggleDeleteButtonVisible = () => {
+    setDeleteButtonVisible(!deleteButtonVisible);
+  };
+
+  const delMsgBtn = props.currentConversation ? (
+    <TouchableWithoutFeedback onPress={props.deleteMessage}>
+      <Image
+        source={require("../../assets/inbox.png")}
+        style={styles.deleteBtn}
+      />
+    </TouchableWithoutFeedback>
+  ) : (
+    ""
+  );
+
+  const deleteButtonElement = deleteButtonVisible ? delMsgBtn : "";
+
   const notifTrue = "../../assets/notif-filled.png";
   const notifFalse = "../../assets/notif-none-outline.png";
   // const notifIcon = unreadMessages ? notifTrue : notifFalse;
+
+  const notifButtonElement = (
+    <Image
+      source={require("../../assets/notif-none-outline.png")}
+      style={styles.notifIcon}
+    ></Image>
+    // <Image source={require({notifIcon})} style={styles.icon}></Image>
+  );
 
   return (
     <View style={styles.headerContainer}>
@@ -43,11 +76,9 @@ const Header = (props) => {
         ></Image>
         <Search screenType={props.screenType} style={styles.search}></Search>
       </View>
-      <Image
-        source={require("../../assets/notif-none-outline.png")}
-        style={styles.notifIcon}
-      ></Image>
-      {/* <Image source={require({notifIcon})} style={styles.icon}></Image> */}
+      {props.currentConversation ? notifButtonElement : ""}
+      {/* {props.currentConversation && notifButtonElement} */}
+      {deleteButtonElement}
     </View>
   );
 };

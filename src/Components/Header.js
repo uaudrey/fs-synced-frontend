@@ -74,9 +74,10 @@ const Header = (props) => {
           source={require("../../assets/synced-icon.png")}
           style={styles.icon}
         ></Image>
-        <Search screenType={props.screenType} style={styles.search}></Search>
+        <Search screenType={props.screenType}></Search>
       </View>
-      {props.currentConversation ? notifButtonElement : ""}
+      {notifButtonElement}
+      {/* {props.currentConversation ? notifButtonElement : ""} */}
       {/* {props.currentConversation && notifButtonElement} */}
       {deleteButtonElement}
     </View>

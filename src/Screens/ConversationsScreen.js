@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import axios from "axios";
 import Header from "../Components/Header";
 import ConversationsBanner from "../Components/ConversationsBanner";
 import ConversationInfo from "../Components/ConversationInfo";
+import slackLogo from "../../assets/slack.png";
+import waLogo from "../../assets/whatsapp.png";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,6 +19,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 15,
     marginLeft: 10,
+    fontWeight: "bold",
   },
 });
 
@@ -67,6 +70,8 @@ const ConversationsScreen = ({ navigation }) => {
           msgText={conversation.body}
           platform={conversation.platform}
           // onPressEvent={() => navigation.navigate('Chat')}
+          // onPress={() =>
+          //       navigation.navigate('Conversation', {conversationId: {currentConversation}})
           updateCurrentConversation={props.updateCurrentConversation}
           notifButton={notifButton}
         ></ConversationInfo>
@@ -87,9 +92,6 @@ const ConversationsScreen = ({ navigation }) => {
   //useState and useEffect?
   // const [conversationPlatforms, setConversationPlatforms] = useState([]);
 
-  // onPress={() =>
-  //       navigation.navigate('Profile', {name: 'Jane'})
-
   return (
     <View style={styles.container}>
       <Header screenType="Conversations"></Header>
@@ -98,10 +100,73 @@ const ConversationsScreen = ({ navigation }) => {
         platforms={platforms}
       ></ConversationsBanner>
       <Text style={styles.inboxP}>INBOX</Text>
-      <ConversationInfo></ConversationInfo>
-      <ConversationInfo></ConversationInfo>
-      <ConversationInfo></ConversationInfo>
-      {/* {conversationsList} */}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ConversationInfo
+          initalsColor="#7ABCEC"
+          initials="AM"
+          sender="Ashanti M"
+          image={slackLogo}
+          msg="Hey! Just wanted to check in"
+        ></ConversationInfo>
+        <ConversationInfo
+          initalsColor="#7AECAE"
+          initials="AG"
+          sender="Aviva Gars"
+          image={slackLogo}
+          msg="I love CSS! I've seen the light. ..."
+        ></ConversationInfo>
+        <ConversationInfo
+          initalsColor="#E7D110"
+          initials="CT"
+          sender="Chris Tal"
+          image={waLogo}
+          msg="What happened to the ramen I..."
+        ></ConversationInfo>
+        <ConversationInfo
+          initalsColor="#FD8AE4"
+          initials="A"
+          sender="Aisha"
+          image={slackLogo}
+          msg="Discord won't know what hit t..."
+        ></ConversationInfo>
+        <ConversationInfo
+          initalsColor="#CA8AFD"
+          initials="M"
+          sender="Madre"
+          image={waLogo}
+          msg="I'm looking at purses. Which o..."
+        ></ConversationInfo>
+        <ConversationInfo
+          initalsColor="#E7D110"
+          initials="DL"
+          sender="Darrian Linton"
+          image={waLogo}
+          msg="Want to go work out?"
+        ></ConversationInfo>
+        <ConversationInfo
+          initalsColor="#FD8AE4"
+          initials="AA"
+          sender="Audrey Andoy"
+          image={slackLogo}
+          msg="Hmmm maybe. I'm pretty muc..."
+          onSelectConversation={() => navigation.navigate("Chat")}
+        ></ConversationInfo>
+        <ConversationInfo
+          initalsColor="#7AECAE"
+          initials="BH"
+          sender="Brooke Hill"
+          image={slackLogo}
+          msg="Congratulations bb"
+        ></ConversationInfo>
+        <ConversationInfo
+          initalsColor="#7ABCEC"
+          initials="M"
+          sender="Mundungus"
+          image={waLogo}
+          msg="Want anything from that pho..."
+        ></ConversationInfo>
+        {/* {conversationsList} */}
+      </ScrollView>
     </View>
   );
 };

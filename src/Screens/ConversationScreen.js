@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import axios from "axios";
 import Header from "../Components/Header";
 import Message from "../Components/Message";
@@ -19,6 +19,31 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginLeft: 10,
   },
+
+  msgsContainer: {
+    // flex: 1,
+    // paddingBottom: 50,
+    // marginBottom: 50,
+  },
+
+  createMsgInput: {
+    height: 40,
+    borderWidth: 1,
+    borderColor: "#D9D9D9",
+    borderRadius: 20,
+    width: "90%",
+    paddingVertical: 10,
+  },
+
+  createMsgText: {
+    marginVertical: 15,
+  },
+
+  createMsgContainer: {
+    marginBottom: 20,
+    paddingVertical: 20,
+    alignItems: "center",
+  },
 });
 
 const ConversationScreen = ({ navigation }, props) => {
@@ -32,7 +57,8 @@ const ConversationScreen = ({ navigation }, props) => {
   const sendMessage = (message) => {
     axios
       .post(
-        `${BACKEND_URL}/conversations/${props.currentConversation}/messages`,
+        // `${BACKEND_URL}/conversations/${props.currentConversation}/messages`,
+        `${BACKEND_URL}/conversations/messages/${props.currentConversation}`,
         { message }
       )
       .then(() => {
@@ -45,7 +71,8 @@ const ConversationScreen = ({ navigation }, props) => {
     if (props.currentConversation)
       axios
         .get(
-          `${BACKEND_URL}/conversations/${props.currentConversation}/messages`
+          // `${BACKEND_URL}/conversations/${props.currentConversation}/messages`
+          `${BACKEND_URL}/conversations/messages/${props.currentConversation}`
         )
         .then((result) => {
           setMessages(result.data);
@@ -96,8 +123,81 @@ const ConversationScreen = ({ navigation }, props) => {
       // senderNames={}
       // platform={}
       ></ConversationBanner>
-      {/* {messageList} */}
-      {/* <MessageForm sendMessage={sendMessage}></MessageForm> */}
+      <ScrollView style={styles.msgsContainer}>
+        <Message
+          msgText="Functional programming is fun!"
+          msgType="incoming"
+          height={45}
+        ></Message>
+        <Message
+          msgText="Making up a conversation is hard"
+          msgType="outgoing"
+          height={45}
+        ></Message>
+        <Message
+          msgText="No need to put the real receipts"
+          msgType="outgoing"
+          height={45}
+        ></Message>
+        <Message
+          msgText="Just think of stuff I would say. You got this!"
+          msgType="incoming"
+          height={60}
+        ></Message>
+        <Message
+          msgText="Even in a fake conversation for project, you're still hyping me up"
+          msgType="outgoing"
+          height={60}
+        ></Message>
+        <Message
+          msgText="But that's easier said than done. You have a very particular personality"
+          msgType="outgoing"
+          height={80}
+        ></Message>
+        <Message
+          msgText="You're more upbeat than me"
+          msgType="outgoing"
+          height={45}
+        ></Message>
+        <Message
+          msgText="You better eat this presentation up"
+          msgType="incoming"
+          height={45}
+        ></Message>
+        <Message
+          msgText="Mmmm nah that sounds more like Brooke"
+          msgType="outgoing"
+          height={45}
+        ></Message>
+        <Message
+          msgText="Okay well I tried lol"
+          msgType="incoming"
+          height={45}
+        ></Message>
+        <Message
+          msgText="No but seriously, you're going to do great. You all have worked so hard. Finish this and then you can watch Shrek!"
+          msgType="incoming"
+          height={100}
+        ></Message>
+        <Message
+          msgText="Wow, that sounds like you. Are you going to be in my head during internship. Like my own Mr. Feeny?"
+          msgType="outgoing"
+          height={80}
+        ></Message>
+        <Message
+          msgText="Hmmm maybe. I'm pretty much everywhere!"
+          msgType="incoming"
+          height={60}
+        ></Message>
+        {/* {messageList} */}
+        {/* <MessageForm sendMessage={sendMessage}></MessageForm> */}
+      </ScrollView>
+      <View style={styles.createMsgContainer}>
+        <TextInput
+          placeholder="   Message"
+          style={styles.createMsgInput}
+        ></TextInput>
+      </View>
     </View>
   );
 };

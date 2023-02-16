@@ -13,15 +13,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9F9F9",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     height: 80,
     marginLeft: 12,
     marginRight: 12,
     marginBottom: 6,
     borderRadius: 10,
+    paddingHorizontal: 10,
   },
 
   initialsContainer: {
-    backgroundColor: "#7AECAE",
     borderRadius: 6,
     height: 35,
     width: 35,
@@ -35,15 +36,21 @@ const styles = StyleSheet.create({
     paddingTop: 4,
   },
 
-  // name: {
-  //   flex: 2,
-  // },
+  name: {
+    fontWeight: "bold",
+  },
+
+  nameMsgContainer: {
+    width: 210,
+  },
+
   // msg: {
   //   flex: 3,
   // },
   platformLogo: {
     height: 30,
     width: 30,
+    // alignSelf: "flex-end",
   },
 });
 
@@ -93,21 +100,28 @@ const ConversationInfo = (props) => {
   //     </View>
   //   </TouchableOpacity>
   // );
+
+  const initialsColor = props.initalsColor;
+
   return (
     <TouchableOpacity
-    // onPress={onSelectConversation}
-    // onLongPress={onLongPressEvent}
+      onPress={props.onSelectConversation}
+      // onLongPress={onLongPressEvent}
     >
       <View style={styles.container}>
-        <View style={styles.initialsContainer}>
-          <Text style={styles.initials}>DL</Text>
+        <View
+          style={{
+            ...styles.initialsContainer,
+            backgroundColor: initialsColor,
+          }}
+        >
+          <Text style={styles.initials}>{props.initials}</Text>
         </View>
-        <Text style={styles.name}>Darrian Linton</Text>
-        <Text style={styles.msg}>Test message to see how it looks</Text>
-        <Image
-          source={require("../../assets/slack.png")}
-          style={styles.platformLogo}
-        ></Image>
+        <View style={styles.nameMsgContainer}>
+          <Text style={styles.name}>{props.sender}</Text>
+          <Text style={styles.msg}>{props.msg}</Text>
+        </View>
+        <Image source={props.image} style={styles.platformLogo}></Image>
       </View>
     </TouchableOpacity>
   );

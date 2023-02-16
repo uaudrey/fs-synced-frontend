@@ -9,6 +9,9 @@ import {
   View,
 } from "react-native";
 
+const purpleMain = "#743FB3";
+const purpleSecondary = "#FDF6FF";
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#F6EEFF",
@@ -24,11 +27,18 @@ const styles = StyleSheet.create({
     paddingBottom: 6,
   },
 
+  chatInfo: {
+    color: purpleMain,
+    fontWeight: "bold",
+  },
+
   platformIcon: {
     backgroundColor: "#743FB3",
     height: 35,
     width: 35,
     borderRadius: 7,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   platformLogo: {
@@ -49,8 +59,8 @@ const ConversationBanner = () => {
   return (
     <View style={styles.container}>
       <View>
-        <Text>Darrian Linton</Text>
-        <Text>Conversation Type</Text>
+        <Text style={styles.chatInfo}>Audrey Andoy</Text>
+        <Text>Direct Message</Text>
       </View>
       <View style={styles.platformIcon}>
         <Image

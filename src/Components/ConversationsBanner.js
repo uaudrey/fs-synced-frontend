@@ -42,14 +42,17 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     height: 35,
     width: 35,
+    // justifyContent: "center",
+    alignItems: "center",
   },
 
   addPlatformText: {
-    textAlign: "center",
+    // textAlign: "center",
     fontSize: 34,
     color: "#743FB3",
     // padding: 20,
-    paddingBottom: 10,
+    // paddingBottom: 10,
+    lineHeight: 34,
   },
 
   platformIcons: {
@@ -57,6 +60,8 @@ const styles = StyleSheet.create({
     height: 35,
     width: 35,
     borderRadius: 7,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   filterMessagesLabels: {
@@ -67,6 +72,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 
+  filterLabel: {
+    fontWeight: "bold",
+  },
+
   p: {
     color: "#743FB3",
     fontSize: 13,
@@ -74,6 +83,7 @@ const styles = StyleSheet.create({
 
   platformCountP: {
     textAlign: "right",
+    fontWeight: "normal",
   },
 
   filterButtonsContainer: {
@@ -143,18 +153,18 @@ const ConversationsBanner = (props) => {
   //     </TouchableOpacity>
   //   );
   // });
-  let platformSelectButtons = [];
-  platformList.forEach((platform) => {
-    // const imgUrl = platformData.platform;
-    const imgUrl = platformData[platform];
-    platformSelectButtons.push(
-      <TouchableOpacity style={styles.platformIcons}>
-        <Image source={require({ imgUrl })} />
-      </TouchableOpacity>
-    );
-  });
+  // let platformSelectButtons = [];
+  // platformList.forEach((platform) => {
+  //   // const imgUrl = platformData.platform;
+  //   const imgUrl = platformData[platform];
+  //   platformSelectButtons.push(
+  //     <TouchableOpacity style={styles.platformIcons}>
+  //       <Image source={require({ imgUrl })} />
+  //     </TouchableOpacity>
+  //   );
+  // });
 
-  const [isPressed, setIsPressed] = useState(false);
+  const [isPressed, setIsPressed] = useState(true);
   const onButtonPress = () => {
     setIsPressed(!isPressed);
     // Sort
@@ -192,19 +202,17 @@ const ConversationsBanner = (props) => {
           </TouchableOpacity>
           {/* {platformSelectButtons} */}
         </View>
-        <TouchableHighlight>
+        <TouchableHighlight style={styles.addPlatform}>
           {/* <View style={{...styles.button, isPressed ? styles.buttonSelected : styles.buttonNotSelected}}> */}
-          <View style={styles.addPlatform}>
-            <Text style={styles.addPlatformText}>+</Text>
-          </View>
+          {/* <View > */}
+          <Text style={styles.addPlatformText}>+</Text>
+          {/* </View> */}
         </TouchableHighlight>
       </View>
-      <Text style={{ ...styles.p, ...styles.platformCountP }}>
-        Number of Platforms
-      </Text>
+      <Text style={{ ...styles.p, ...styles.platformCountP }}>2 Platforms</Text>
       <View style={styles.filterMessagesLabels}>
-        <Text style={styles.p}>FILTER</Text>
-        <Text style={styles.p}>Number of Messages</Text>
+        <Text style={{ ...styles.p, ...styles.filterLabel }}>FILTER</Text>
+        <Text style={styles.p}>9 Chats</Text>
         {/* <Text>{`${props.messageCount} Messages`}</Text> */}
       </View>
       <View style={styles.filterButtonsContainer}>
@@ -212,27 +220,26 @@ const ConversationsBanner = (props) => {
           <View style={{ ...styles.filterButton, ...filterButtonStyle }}>
             <Text
               style={{ ...styles.filterButtonText, ...filterButtonTextStyle }}
+              // style={styles.filterButtonText}
             >
               All
             </Text>
           </View>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={onButtonPress}>
-          <View style={{ ...styles.filterButton, ...filterButtonStyle }}>
+        <TouchableWithoutFeedback /*onPress={onButtonPress}*/>
+          {/* <View style={{ ...styles.filterButton, ...filterButtonStyle }}> */}
+          <View style={styles.filterButton}>
             <Text
-              style={{ ...styles.filterButtonText, ...filterButtonTextStyle }}
+              // style={{ ...styles.filterButtonText, ...filterButtonTextStyle }}
+              style={styles.filterButtonText}
             >
               Unread
             </Text>
           </View>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={onButtonPress}>
-          <View style={{ ...styles.filterButton, ...filterButtonStyle }}>
-            <Text
-              style={{ ...styles.filterButtonText, ...filterButtonTextStyle }}
-            >
-              Important
-            </Text>
+        <TouchableWithoutFeedback /*onPress={onButtonPress}*/>
+          <View style={styles.filterButton}>
+            <Text style={styles.filterButtonText}>Important</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>

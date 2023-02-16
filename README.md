@@ -59,3 +59,5 @@ Together these represent the MERN Stack. AWS Lambda and AWS's API Gateway were a
     "serverless-http": "^3.1.1"
 
 This project does require access tokens to perform actions as a user.
+
+README will be updated upon further completion of the project.
